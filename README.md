@@ -128,7 +128,10 @@ Cloud SQL インスタンスのリードレプリカを作成するには、イ�
     - デフォルトは 25%
   - ```maxSurge```
     - 理想状態のPod数を超えて作成できる最大のPod数を指定する
-
+  - 例 : replicas=3の場合
+		­maxSurge=0, maxUnavailable=1 の場合、maxSurgeが0なので3Podまでしか起動を許されない。一方でmaxUnavailableが1なので、1Podは減少してよい。旧バージョンが1Pod減らされるため、旧podは2つでアップグレードする。
+		- maxSurge=1, maxUnavailable=0 の場合、maxSurgeが1なので合計4Podまでの起動が許可される。maxUnavailableが0なので、3 replicasに対し1Podも減少を許さない。3 replicasを保ったまま、新バージョンに段階的に移行する。
+下のようなイメージ。
 ## Bigtable
 - 行キーアンチパターン
   - タイムスタンプ
