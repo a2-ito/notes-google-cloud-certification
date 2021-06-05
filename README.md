@@ -15,12 +15,13 @@
   - 例
     1. ターゲットサイズを超える新しいインスタンス数の作成 5個までとする。
     1. 最大3台のオフラインマシン、最小待機時間3分を指定してローリングアップデートを実行してから、新しいインスタンスをオンラインとしてマークする
+
+## Operation Suite
 - Logging エージェントは、VMインスタンスや選択したサードパーティソフトウェアパッケージからCloud Loggingにログをストリーミングする
   - Compute EngineとAmazon Elastic Compute CloudのVMイメージにはLoggingエージェントが含まれていない
   - Windows/Linux 両方あり
 - Opsエージェント
   - 標準的なCloud Loggingエージェントに比べてスループットが高い
-  - a
 
 ## Cloud Storage
 - オブジェクトのライフサイクル管理
@@ -44,6 +45,7 @@
   - Archive
     - 最小保存期間　365日
     - 1年に1回未満しかアクセスしないデータに最適
+    - 可用性SLAなし
 - Providing Diagnostic Output To Cloud Storage Team
 ```
 gsutil perfdiag -o output.json gs://your-bucket
