@@ -1,0 +1,165 @@
+# ml
+
+- AutoML Tables
+  - データサポート
+  - 特徴エンジニアリング
+  - モデルトレーニング
+  - AutoML Tables か BigQuery ML かの選択
+  - モデルの透明性 と Cloud Logging
+- Cloud Composer
+  - Apache Airflow のマネージドサービス
+  - Python
+  - DAG: 有向非巡回グラフを使用してワークフローを定義
+- Kubeflow Pipelines
+  - Kubeflowオープンソースプロジェクトの１つ
+  - 機械学習ワークフローの構築とデプロイ用のプラットフォーム
+- AI platform 
+  - AI Platform Pipelines
+- Vertex AI
+  - 統合型MLOpsプラットフォーム
+
+## 用語
+- SDG
+  - Stochastic Gradient Dscent
+  - 確率的勾配降下法
+- Epochs
+  - 一つの訓練データを何回繰り返して学習させるのか
+- Verbose
+  - using or containing too many words
+- Z-score normalization
+  - x_new = (x - x_mean)/x_std
+  - 通常の正規化よりも外れ値に強い
+- L1/L2 regularization 
+  - 正則化
+  - モデルの複雑さを抑制する仕組みを誤差関数に埋め込む
+- L2 regularization
+- Hypertuning
+- TPU: Tensor Processing Unit
+  - ワットあたりのIOPSをより高くするために意図的に計算精度を犠牲にした設計となっている
+  - 一般にGPUより学習に必要な計算の速度は早い
+- ROC: Receiver Operation Characteristic
+  - 2値分類で使用されるパフォーマンス計測の可視化手法
+  - 横軸が false positive 縦軸が true positive
+  - ランキング全体に渡る正確さを満遍なく評価
+- PR: Precision-Recall
+  - TNの値が大きくなりやすい場合や、ネガティブケースが豊富な場合には、PR曲線が適している
+  - ランキングが上位のサンプルの予測の正確さを重視
+    - 虫眼鏡的な。
+- AUC: Area Under the Curve
+  - ROC曲線の面積を示す。これが大きければ大きいほど機械学習モデルの性能がよい。
+- Confusion Matrix 混同行列
+  - 二値分類の結果をまとめた表
+- Accuracy 正解率
+  - Accuracy = (TP+TN)/(TP+FP+FN+TN)
+- Recall 再現率
+  - 実際に出てきたものの割合
+  - 見逃し(FN)が多いかどうかを判定
+    - 本来は Positive なのに Negative と判定してしまった
+  - Recall = TP/(TP+FN)
+  - 例
+    - FN 「光の速さ」が実際にわかる本の数
+    - 90/(90 + 110) = 90/200 = 0.45
+    - 10/(10 + 190) = 10/200 = 0.05
+- Precision 適合率
+  - 予測値全体における正解率
+  - 誤検知(FP)が多いほど低くなる
+    - 本来は Negative なのに Positive と判定してしまった
+  - Precision = TP/(TP+FP)
+  - 例
+    - FP 「光の速さ」と検索してヒットしたが、光の速さがわかるものではない本
+    - 90/(90 + 100) = 90/190 = 0.473
+    - 10/(10 + 100) = 10/110 = 0.09
+- Rolling Average ローリング平均
+  - データ・セットの平均が継続的に更新され、その時点までのデータすべてが算入される。
+- XGBoost
+  - eXtreme Gradient Boosting
+  - 勾配Boosting
+  - アンサンブル学習と決定木を組み合わせた手法で、非常に高い汎化能力を誇る
+- ARIMAモデル
+  - Auto Regressive Integrated Moving Average
+  - 時系列解析手法の一つ
+- RNN: Reccurent Neural Network
+  - 回帰型ニューラルネットワーク
+  - 可変長データを入力データとする
+  - 隠れ層の値を再び隠れ層に入力する
+    - 時系列データの解析が可能
+- CNN: Convolutional Neural Network
+  - 畳み込みニューラルネットワーク
+  - 手書き文字認識や音声認識といった課題に応用ができる
+  - 畳み込み層で画像の局所的な特徴を抽出し、プーリング層で特徴をまとめ上げている（画像の抽象化）
+- TensorRT
+  - NVIDIA社がNVIDIA製GPU製品向けに提供しているディープラーニング推論を高速に実行するためのソフトウェア開発キット(SDK)
+  - 推論時間が短時間になる
+- LSTM: Long Short-Term Memory ネットワーク
+  - 長・短期記憶
+  - あ
+- Differential privacy
+  - 差分プライバシ
+  - 個人データが識別されないようにしながら大規模なデータセットから学習できるようにするアプローチ
+  - ノイズを加えることによって個人が特定されにくくすることで、プライバシーを保護する
+- Federated learning
+  - 連合学習
+  - データを集約せずに分散した状態で機械学習を行う方法、2017年にGoogle社が提唱
+  - 例：スマートフォンの端末側で機械学習を行い、改善後のデータだけサーバに送る
+- Redaction
+  - the action of changing, removing, or putting black marks over parts of an official document before it is published in order to keep information secret
+  - 権限のないユーザへの機密データの公開を回避するために、データの表示内容を変更して伏字化を行う仕組み 
+- 勾配降下法 Gradient descent
+- Epochs
+  - 1 Epoch = データセット全体をニューラルネットワークに1回与えて処理を行うこと
+- Batch size
+  - 2000サンプルのデータセットを500サンプルずつにバッチに分割する
+    - バッチサイズ: 500
+- NLP: Natural Language Processing
+  - 自然言語処理
+- K-fold cross validation
+  - 学習用データをk分割してk回学習させる
+- Integrated Gradients
+- PCA: Principal Component Analysis
+  - 主成分分析
+  - 相関ある特徴量から、互いに無相関の合成関数を作る手法
+- k-means
+  - k平均法、教師あり学習、クラスタリング
+- Loss function 損失関数
+  - 正解値と、モデルによって出力された予測値のズレの大きさを計算するための関数
+  - 例
+    - Categorical hinge
+    - Binary cross-entropy
+      - 正・負両方から学習できる
+    - Categorical cross-entropy
+      - 真値が正のときからしか損失が計上されない
+    - Sparse categorical cross-entropy
+- learning rate
+  - 学習率
+  - 学習スピードの速さ　0.1前後から数値を小さくしていくのがよい
+- DLP
+  - Data Loss Prevention
+
+## BQML
+- `AUTO_CLASS_WEIGHTS`
+  - 分類モデルのときだけ有効なパラメータ。
+  - 不均衡データを分類するときにいい感じに重み付けしてくれるらしい機能
+- `BATCH_SIZE`
+  - ミニバッチ勾配降下法というトレーニングデータをサブセットに分けて最適なパラメータを見つける手法が使われるが、そのときのサブセットのサイズを指定する。
+- `DROPOUT`
+  - 過学習防止のために、学習を進める際にノードを無視する確率を指定。
+  - 0.5 or 0.1 が多いらしい。
+
+## Tensorflow
+- `from_tensors`
+  - 入力を結合して、単一の要素を持つデータセットを返す
+  - `[[1,2], [3,4]]`
+- `from_tensor_slices`
+  - 入力テンソルの各行に個別の要素を持つデータセットを作成する
+  - `[1,2], [3,4]`
+- `batch_size`
+- `MirroredStrategy`
+  - 複数のGPU、TPUを使用して学習するためのAPI
+
+## Crash Course
+### Testing for Algorithmic Correctness
+機械学習アルゴリズムの正しさを評価しなさい。そのやり方によって本当に正解に近づくか？を確認する。
+- Train your model for a few iterations and verify that the loss decreases.
+- Train your algorithm without regularization. If your model is complex enough, it will memorize the training data and your training loss will be close to 0.
+- Test specific subcomputations of your algorithm. For example, you can test that a part of your RNN runs once per element of the input data.
+
