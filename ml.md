@@ -17,6 +17,11 @@
   - AI Platform Pipelines
 - Vertex AI
   - 統合型MLOpsプラットフォーム
+- Data Catalog
+  - 知見をもたらすデータを検索する
+  - 操作
+    - アクセス可能なデータアセットを検索する
+    - メタデータでアセットにタグ付けする
 
 ## 用語
 - SDG
@@ -92,7 +97,7 @@
   - 推論時間が短時間になる
 - LSTM: Long Short-Term Memory ネットワーク
   - 長・短期記憶
-  - あ
+  - サイズ不明のタイムラグが与えられ重要なイベントに挟まれている時系列を分類、処理、予測する目的で経験から学習することに適している
 - Differential privacy
   - 差分プライバシ
   - 個人データが識別されないようにしながら大規模なデータセットから学習できるようにするアプローチ
@@ -129,11 +134,22 @@
     - Categorical cross-entropy
       - 真値が正のときからしか損失が計上されない
     - Sparse categorical cross-entropy
+      - 巨大なデータセットに有効
 - learning rate
   - 学習率
   - 学習スピードの速さ　0.1前後から数値を小さくしていくのがよい
-- DLP
-  - Data Loss Prevention
+- DLP: Data Loss Prevention
+- Feature Engineering
+  - 特徴量エンジエアリング
+  - ドメイン知識を使用して生データから特徴を抽出するプロセス
+- Continuous Evaluation
+  - モデルの予測とグラウンドトゥルースラベルを比較して、モデルの成果を継続的にフィードバックする
+- Resnet: Residual Network
+  - ニューラルネットワークのモデルの一つ
+- ビニング
+  - 特徴量エンジニアリング
+  - 連続値の特徴量を離散化してカテゴリ変数に変換する
+  - 線形モデルにおいて、表現力を高める効果が期待できる
 
 ## BQML
 - `AUTO_CLASS_WEIGHTS`
@@ -163,3 +179,7 @@
 - Train your algorithm without regularization. If your model is complex enough, it will memorize the training data and your training loss will be close to 0.
 - Test specific subcomputations of your algorithm. For example, you can test that a part of your RNN runs once per element of the input data.
 
+### Downsampling and Upweighting
+An effective way to handle imbalanced data is to downsample and upweight the majority class. Let's start by defining those two new terms:
+- Downsampling (in this context) means training on a disproportionately low subset of the majority class examples.
+- Upweighting means adding an example weight to the downsampled class equal to the factor by which you downsampled.
