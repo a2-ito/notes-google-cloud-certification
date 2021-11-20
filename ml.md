@@ -1,5 +1,6 @@
 # ml
 
+## Google Cloud Components
 - AutoML Tables
   - データサポート
   - 特徴エンジニアリング
@@ -8,7 +9,7 @@
   - モデルの透明性 と Cloud Logging
 - Cloud Composer
   - Apache Airflow のマネージドサービス
-  - Python
+  - Python で記述する
   - DAG: 有向非巡回グラフを使用してワークフローを定義
 - Kubeflow Pipelines
   - Kubeflowオープンソースプロジェクトの１つ
@@ -22,13 +23,18 @@
   - 操作
     - アクセス可能なデータアセットを検索する
     - メタデータでアセットにタグ付けする
+- AI Platform Data Labeling Service
+  - 入力
+    - ラベルをつける、代表的なデータサンプルを含むデータセット
+    - データセット内の可能性があるすべてのラベルをリストするラベルセット
+    - ラベル付けタスクでラベル付け担当者を導く一連の指示
 
 ## 用語
-- SDG
-  - Stochastic Gradient Dscent
+- SDG: Stochastic Gradient Dscent
   - 確率的勾配降下法
 - Epochs
   - 一つの訓練データを何回繰り返して学習させるのか
+  - 1 Epoch = データセット全体をニューラルネットワークに1回与えて処理を行うこと
 - Verbose
   - using or containing too many words
 - Z-score normalization
@@ -37,8 +43,6 @@
 - L1/L2 regularization 
   - 正則化
   - モデルの複雑さを抑制する仕組みを誤差関数に埋め込む
-- L2 regularization
-- Hypertuning
 - TPU: Tensor Processing Unit
   - ワットあたりのIOPSをより高くするために意図的に計算精度を犠牲にした設計となっている
   - 一般にGPUより学習に必要な計算の速度は早い
@@ -80,9 +84,6 @@
   - eXtreme Gradient Boosting
   - 勾配Boosting
   - アンサンブル学習と決定木を組み合わせた手法で、非常に高い汎化能力を誇る
-- ARIMAモデル
-  - Auto Regressive Integrated Moving Average
-  - 時系列解析手法の一つ
 - RNN: Reccurent Neural Network
   - 回帰型ニューラルネットワーク
   - 可変長データを入力データとする
@@ -110,8 +111,6 @@
   - the action of changing, removing, or putting black marks over parts of an official document before it is published in order to keep information secret
   - 権限のないユーザへの機密データの公開を回避するために、データの表示内容を変更して伏字化を行う仕組み 
 - 勾配降下法 Gradient descent
-- Epochs
-  - 1 Epoch = データセット全体をニューラルネットワークに1回与えて処理を行うこと
 - Batch size
   - 2000サンプルのデータセットを500サンプルずつにバッチに分割する
     - バッチサイズ: 500
@@ -120,6 +119,8 @@
 - K-fold cross validation
   - 学習用データをk分割してk回学習させる
 - Integrated Gradients
+  - モデルの予測間の関係をその特徴の観点から説明することを目指している
+  - 機能の重要性の理解、データの偏りの特定、モデルのパフォーマンスのデバック等多くのユースケースがある
 - PCA: Principal Component Analysis
   - 主成分分析
   - 相関ある特徴量から、互いに無相関の合成関数を作る手法
@@ -139,6 +140,7 @@
   - 学習率
   - 学習スピードの速さ　0.1前後から数値を小さくしていくのがよい
 - DLP: Data Loss Prevention
+  - 情報漏えい対策
 - Feature Engineering
   - 特徴量エンジエアリング
   - ドメイン知識を使用して生データから特徴を抽出するプロセス
@@ -146,10 +148,49 @@
   - モデルの予測とグラウンドトゥルースラベルを比較して、モデルの成果を継続的にフィードバックする
 - Resnet: Residual Network
   - ニューラルネットワークのモデルの一つ
-- ビニング
+  - 勾配消失問題（レイヤを増やすと勾配が消失、学習が進まない問題）及びdegradation problem（劣化問題）を解決
+  - DNNのレイヤ数が増えてもきちんと学習ができるようになった
+- Binning ビニング
   - 特徴量エンジニアリング
   - 連続値の特徴量を離散化してカテゴリ変数に変換する
   - 線形モデルにおいて、表現力を高める効果が期待できる
+- AI Explanations
+  - 予測結果に最も強く影響を及ぼした画像内の部分を示す画像のオーバレイが返される
+- 時系列データ解析手法
+  - MA(移動平均)
+    - 変動が細かすぎて全体の傾向を掴みづらい場合に、「移動平均」を用いることで変化をより滑らかにしてデータを俯瞰する手法
+  - ARIMA
+    - 自己回帰モデル(AR)、移動平均モデル(MA)、和分モデル(I)の3つを組み合わせたモデル
+  - SARIMA
+    - ARIMAに「季節的な周期パターン」を加えたモデル
+- One-Hot encoding
+  - カテゴリ変数をモデルに学習させられるように、数値に置き換えるための手法
+  - 例
+    - 雇用形態：公務員、自営業、民間企業従業員
+    - というデータがあったとき、各カラムを追加し、0or1を入れる
+- 勾配降下法
+  - バッチ勾配降下法
+    - パラメータの更新のたびに全ての訓練データで勾配を計算する
+    - 訓練データの量が増加するにつれて計算を行うのが難しくなる
+  - ミニバッチ勾配降下法
+    - 訓練データの中からいくつかのデータを取り出し、そのデータで計算した勾配に基づいてパラメータを更新する手法
+    - バッチ勾配降下法に比べると必要なメモリ量が少なく、外れ値の影響も受けにくい
+  - 確率的勾配降下法
+    - 訓練データの中から一つデータを取り出し、そのデータから計算した勾配を用いてパラメータを更新していく手法
+    - 計算量が少なくて済むが、外れ値などの影響を受けやすくなるためパラメータの更新が安定しない
+- Z-score
+  - 分布の平均値からのずれを示す値。
+  - 注目している標本値と分布の平均値の差を分布の標準偏差で割った値で定義される。
+  - Z-scoreの絶対値が大きければ大きいほど、分布の平均値からのずれが大きいことを示している。
+- Softmax
+  - 任意の入力xに対し、0.0～1.0の範囲で出力
+  - 分類問題における出力層の活性化関数として用いられる
+- MSE: Mean Squared Error
+  - 平均二乗誤差
+  - 各データに対して「予測値と正解値の差(=誤差)」の二乗値を計算し、その総和をデータ数で割った値(=平均値)を出力する関数
+
+
+
 
 ## BQML
 - `AUTO_CLASS_WEIGHTS`
@@ -162,6 +203,12 @@
   - 0.5 or 0.1 が多いらしい。
 
 ## Tensorflow
+- TFRecords
+  - Protocol Buffersフォーマットでシリアライズされたデータを詰め込むことができる
+  - 画像データなどのバイナリでも、シリアライズしてしまえば詰め込むことが可能
+  - メリット
+    - TFRecords形式のファイルを扱う機能が提供されている
+    - 高速：直接画像データを読み込むよりも、TFRecords形式に変換したものを利用したほうが高速にデータを処理することができる
 - `from_tensors`
   - 入力を結合して、単一の要素を持つデータセットを返す
   - `[[1,2], [3,4]]`
@@ -172,7 +219,10 @@
 - `MirroredStrategy`
   - 複数のGPU、TPUを使用して学習するためのAPI
 
+
+
 ## Crash Course
+
 ### Testing for Algorithmic Correctness
 機械学習アルゴリズムの正しさを評価しなさい。そのやり方によって本当に正解に近づくか？を確認する。
 - Train your model for a few iterations and verify that the loss decreases.
