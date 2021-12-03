@@ -1,10 +1,27 @@
 # Network
 
 ## Google Cloud Services
-### VPC:Virtual Private Cloud
+### VPC: Virtual Private Cloud
   - Cloud VPNトンネルまたはCloud Interconnectアタッチメント(VLAN)を経由してトラフィックをルーティングすることにより、オンプレミスからGoogle APIとサービスに接続できる
   - オンプレミスから送信されるGoogle APIとサービストラフィックをprivate.googleapis.comまたはrestricted.googleapis.com という特別なドメインメインのいずれかに関連付けられたIPアドレスに転送する必要がある
 - auto mode と custom mode
+- エイリアスIP
+  - 内部IPアドレスの範囲をエイリアスとして割当可能
+  - VMで複数サービスを実行している場合、各サービスに異なるIPアドレスを割り当てると便利
+- ネットワークタグを構成して、特定のVMインスタンスに適用されるファイアウォールルールやルートを作成できる。
+- Private Service Connect プライベートサービスアクセス
+  - サポートするGoogleサービス
+    - Cloud SQL
+    - Memorystore for Redis
+    - Memorystore for Memcached
+    - AI Platform Training
+    - Cloud Build
+
+### Shared VPC
+- 組織内の複数プロジェクトのリソースを共通のVPCに接続する
+- BGP設定はホストプロジェクトのみ。
+- Firewall などネットワークポリシの一元管理
+- 接続可能なサービスプロジェクト数が(初期値で)1000
 
 ### Cloud Load Balancing
   - 容量スケーラーの設定
@@ -35,24 +52,21 @@
   - ルールを適用しなくても、その影響をプレビューできる。プレビューモードでは、Cloud Monitoring にアクションが記録される。
 - Network Load Balancer には対応していない
 - 2つのクラス
+
 ![Cloud Armor](https://raw.githubusercontent.com/a2-ito/notes-google-cloud-certification/master/images/cloudarmor_classes.png)
 
-### Cloud VPC
+### Private Google Access
+- 限定公開のGoogleアクセス
+- 外部IPアドレスを持たないVMのサブネットで限定公開のGoogleアクセスを有効にすると、Google APIとサービスで使用される一連の外部IPアドレスにVMを接続できる
 
-### 限定公開アクセス
- - 限定公開のGoogleアクセス
-- 外部IPアドレスを持たないVMのサブネットで限定公開のGoogleアクセスを有効にすると、Google APIとサービスで使用される一連の外部IPアドレスにVMを接続できる- enable-os-login
-- os login を有効化または無効化できる
-
-### Shared VPC
-- 組織内の複数プロジェクトのリソースを共通のVPCに接続する
-- BGP設定はホストプロジェクトのみ。
-- Firewall などネットワークポリシの一元管理
-- 接続可能なサービスプロジェクト数が(初期値で)1000
+### メタデータ
+- enable-os-login
+  - os login を有効化または無効化できる
 
 ### route-based VPN tunnel
 ### policy-based VPN tunnel
 ### Cloud NAT
+
 ### Cloud DNS
 - DNSSECを無効にする
   - ドメインのDSレコードすべてを親ゾーンから削除する
@@ -79,6 +93,19 @@
   - Direct Peering は Google Cloud の外部に存在する。Google Workspace アプリケーションにアクセスする必要がない限り、Google Cloud への推奨のアクセス方法は、Dedicated Interconnect または Partner Interconnect となる。
 ### Career Peering
 
+### Partner Interconnect
+- パートナーの持っているキャパシティに応じて帯域が決まる。
+
+### Dedicated Interconnect
+
+### GKE
+- ノードあたりの最大pod数は、デフォルトで110
+  - 減らすことも可能。（増やすことはできない）
+  - ノードで作成できる Pod の最大巣の2倍以上の利用可能なIPアドレスを指定すること
+    - ノードのpodが追加・削除される際に、KubernetesによるIPアドレスの再利用を抑制できる
+    - GKE というか Kubernetes のポリシ？
+  - デフォルト110の場合、/24 CIDR を割り当てる(256>110*2=220)
+
 ## Glossary
 - ルーティングプロトコル系
   - IGP: Interior Gateway Protocol
@@ -94,11 +121,6 @@
     - BGP
       - パスベクトルルーティングを使用するドメイン間ルーティングプロトコル
       - AS外で実行される
-- Carrer Peering
-  - Public IP アドレスレンジが必要。
-- Partner Interconnect
-  - パートナーの持っているキャパシティに応じて帯域が決まる。
-- Dedicated Interconnect
 - VPC Flow log
 - IKE: Internet Key Exchange
   - IKEv2 を使用すると、トラフィック セレクタごとに複数の CIDR を指定できる
