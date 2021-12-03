@@ -28,7 +28,7 @@
   - プレビューモード
     - ルールを適用しなくても、その影響をプレビューできる。プレビューモードでは、Cloud Monitoring にアクションが記録される。
 
-![Cloud Armor](https://raw.githubusercontent.com/a2-ito/notes-google-cloud-certification/images/cloudarmor_classes.png)
+![Cloud Armor](https://raw.githubusercontent.com/a2-ito/notes-google-cloud-certification/master/images/cloudarmor_classes.png)
 
 - Cloud VPC
   - auto mode と custom mode
