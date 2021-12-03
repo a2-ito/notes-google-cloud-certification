@@ -5,6 +5,10 @@
   - Cloud VPNトンネルまたはCloud Interconnectアタッチメント(VLAN)を経由してトラフィックをルーティングすることにより、オンプレミスからGoogle APIとサービスに接続できる
   - オンプレミスから送信されるGoogle APIとサービストラフィックをprivate.googleapis.comまたはrestricted.googleapis.com という特別なドメインメインのいずれかに関連付けられたIPアドレスに転送する必要がある
 - auto mode と custom mode
+  - auto mode
+    - 各リージョンから1つのサブネットがネットワーク内に自動的に作成される
+  - custom mode
+    - サブネットは自動的に作成されない
 - エイリアスIP
   - 内部IPアドレスの範囲をエイリアスとして割当可能
   - VMで複数サービスを実行している場合、各サービスに異なるIPアドレスを割り当てると便利
@@ -23,10 +27,18 @@
 - Firewall などネットワークポリシの一元管理
 - 接続可能なサービスプロジェクト数が(初期値で)1000
 
-### Cloud Load Balancing
-  - 容量スケーラーの設定
-    - ターゲット容量を変更せずにターゲット容量スケールダウンすることができる。
-    - 例：最大使用率が80RPS、容量スケーラが0.5の場合、有効なターゲット容量は40RPSとなる。
+### Cloud Load Balancer
+- 容量スケーラーの設定
+  - ターゲット容量を変更せずにターゲット容量スケールダウンすることができる。
+  - 例：最大使用率が80RPS、容量スケーラが0.5の場合、有効なターゲット容量は40RPSとなる。
+- Global
+  - Global External HTTP(S) Load Balancing
+  - External HTTP(S) Load Balancing (classic)
+  - SSL Proxy Load Balancing
+  - TCP Proxy Load Balancing
+    - PROXYプロトコルを有効にすることで、送信元IPアドレス、宛先IPアドレス、ポート番号を含む追加ヘッダーをインスタンスへリクエストの構成部分として送信する
+- Regional
+  - Regional External HTTP(S) Load Balancing
 
 ### Cloud Router
 
@@ -34,7 +46,7 @@
   - グローバルルーティングをサポート
     - 特定のリージョンへの Interconnect があれば、そこ経由でどのリージョンのサブネットにもアクセスできるようになる
   - LOA-CFA: Letter of Authorization and Connecting Facility Assignment
-    - Googleから顧客とNOC（技術担当）にメールで送信ｓれる
+    - Googleから顧客とNOC（技術担当）にメールで送信される
     - LOA-CFAをベンダーに送信して、ベンダーが接続をインストールできるようにする必要がある
   - 10 Gbps or 100 Gbps の回線
   - 暗号化されない
@@ -42,6 +54,12 @@
 ### Partner Interconnect
   - 50 Mbps ～ 50 Gbps
   - 暗号化されない
+  - L2 partner
+    - BGPはオンプレミスルーターとVPCネットワーク内のCloud Router の間で構成される
+  - L3 partner
+    - トラフィックはサービスプロバイダのネットワークに渡される
+    - オンプレミスネットワークとサービスプロバイダネットワークの接続は、サービスプロバイダによって異なる
+      - BGPセッションを確立する必要があるかもしれない
 
 ### Cloud IAM
   - Role Launch Stage
@@ -77,15 +95,6 @@
 - VMインスタンスによって送受信されたネットワークフローのサンプルが記録される
 - ネットワークモニタリング、フォレンジック、リアルタイムセキュリティ分析、費用の最適化に使用できる
 
-### Load Balancer
-- Global
-  - Global External HTTP(S) Load Balancing
-  - External HTTP(S) Load Balancing (classic)
-  - SSL Proxy Load Balancing
-  - TCP Proxy Load Balancing
-    - PROXYプロトコルを有効にすることで、送信元IPアドレス、宛先IPアドレス、ポート番号を含む追加ヘッダーをインスタンスへリクエストの構成部分として送信する
-- Regional
-  - Regional External HTTP(S) Load Balancing
 ### Circuit Operational Status 
 
 ### Direct Peering
